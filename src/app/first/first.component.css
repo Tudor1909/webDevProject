@@ -1,0 +1,33 @@
+html {
+  /*background-color: lightblue;*/
+  background-color: #FFF59E;
+}
+
+body {
+  width: 100wh;
+  margin: 0 10%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  
+}
+
+.input-form {
+  margin: 1% auto 0;
+}
+
+.activity-content {
+    
+}
+
+.activity-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.completed-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}

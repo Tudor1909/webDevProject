@@ -1,0 +1,111 @@
+<!--<section>
+    <div class="example-label">Basic</div>
+    <div class="example-button-row">
+      <button mat-button (click)="changeText()">Change Text</button>
+      <button mat-button (click)="showMoreButtons()" color="primary">Show more</button>
+      <button mat-button (click)="showLessButtons()" color="accent">Show less</button>
+      <button mat-button color="warn">Warn</button>
+      <button mat-button disabled>Disabled</button>
+      <a mat-button href="https://www.google.com/" target="_blank">Link</a>
+    </div>
+  </section>
+  <mat-divider></mat-divider>
+  <section *ngIf="showSecondRow===true">
+    <div class="example-label">Raised</div>
+    <div class="example-button-row">
+      <button mat-raised-button>Basic</button>
+      <button mat-raised-button color="primary">Primary</button>
+      <button mat-raised-button color="accent">Accent</button>
+      <button mat-raised-button color="warn">Warn</button>
+      <button mat-raised-button disabled>Disabled</button>
+      <a mat-raised-button href="https://www.google.com/" target="_blank">Link</a>
+    </div>
+  </section>
+  <section>
+    <mat-list role="list">
+        <mat-list-item role="listitem" *ngFor="let item of my_list">{{item}}</mat-list-item>
+    </mat-list>
+  </section>
+  <section>
+    <mat-form-field class="example-form-field">
+      <mat-label>Enter favorite food</mat-label>
+      <input matInput type="text" [(ngModel)]="inputValue">
+      <button *ngIf="inputValue" matSuffix mat-icon-button aria-label="Clear" (click)="inputValue=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+    <h2>Your favorite food is {{inputValue}}</h2>
+  </section>-->
+
+<html>  
+  <body>
+    <div class="input-form">
+
+      <mat-form-field class="example-form-field">
+        <mat-label>Enter Activity</mat-label>
+        <input matInput type="text" [(ngModel)]="activityName">
+        <button *ngIf="inputValue" matSuffix mat-icon-button aria-label="Clear" (click)="inputValue=''">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>      
+
+      <mat-form-field class="example-form-field">
+        <mat-label>Activity Deadline</mat-label>
+        <input matInput type="date" [(ngModel)]="activityDeadline">
+        <button *ngIf="inputValue" matSuffix mat-icon-button aria-label="Clear" (click)="inputValue=''">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+      
+    </div>
+
+    <div class="activity-content">
+      <div class="activity-buttons">
+          <button (click)="addActivity()" mat-raised-button>Add Activity</button>        
+          <button (click)="getActivities()" mat-raised-button>Get Activities</button>        
+          <button *ngIf="this.showDetailed===true" (click)="hideCurrentActivities(activities); this.showDetailed=false" mat-raised-button>Hide Activities</button>                               
+      </div>
+
+      <mat-selection-list id="currentActivities" role="list" #activities [(ngModel)]="selectedForCompletion">
+        <mat-list-option *ngFor="let activity of dbData" [value]="activity">
+          {{activity.name}}, {{activity.startDate}}, {{activity.deadline}}
+        </mat-list-option>
+      </mat-selection-list>
+
+      <div *ngIf="this.showDetailed===true" class="buttom-activity-data">
+        <p *ngIf="activities.selectedOptions.selected.length > 0">
+          Mark as Completed: {{activities.selectedOptions.selected.length}}
+        </p>
+        <button (click)="finishActivity(selectedForCompletion); update(selectedForCompletion, deselectCompletion); this.showDetailed=false" mat-raised-button>Mark as Completed</button>
+      </div>
+
+    </div>
+
+    <!--<section>                  
+      <mat-list role="list">
+        <mat-list-item role="listitem" *ngFor="let student of studentsFromDB">
+          {{student.Name}}, {{student.Alter}}
+        </mat-list-item>
+      </mat-list>
+    </section>-->
+
+    <div class="completed-content">
+      <div class="completed-buttons">
+        <button (click)="getFinishedActivities(); this.showDetailedC=true" mat-raised-button>Get Completed Activities</button>
+        <button *ngIf="this.showDetailedC===true" (click)="hideCompletedActivities(activities); this.showDetailedC=false" mat-raised-button>Hide Completed Activities</button>
+      </div>
+      
+      <mat-selection-list *ngIf="this.showDetailedC===true" id="completedActivities" role="list" #notCompleted [(ngModel)]="deselectCompletion">
+        <mat-list-option *ngFor="let activity of dbDataCompleted" [value]="activity">
+          {{activity.name}}, {{activity.startDate}}, {{activity.deadline}}
+        </mat-list-option>
+      </mat-selection-list>      
+
+      <div class="buttom-activity-data" *ngIf="this.showDetailedC===true">
+        <button (click)="this.showDetailedC=false; undoCompletion(deselectCompletion); update(selectedForCompletion, deselectCompletion)" mat-raised-button>Mark as Uncompleted</button>        
+      </div>
+
+    </div>
+ 
+  </body>
+</html>
